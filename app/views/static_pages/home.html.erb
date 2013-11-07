@@ -1,2 +1,7 @@
-<h1>StaticPages#home</h1>
+<% provide(:title, 'Home') %>
+
+<h1>Home</h1>
+<p>This is a <%= link_to "home", static_pages_home_path %> page.</p>
+<p>Click <%= link_to "about", static_pages_about_path %> to go to 
+about page.</p>
 <p>Find me in app/views/static_pages/home.html.erb</p>
