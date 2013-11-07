@@ -1,43 +1,54 @@
 require 'spec_helper'
 
 describe "StaticPages" do
-  describe "GET /static_pages" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      visit '/static_pages/home'
-      expect(page).to have_content('home')
-      # get static_pages_index_path
-      # response.status.should be(200)
-    end
 
-    it "title shoud content 'DJiango | '" do
+  let(:base_title) { "DJiango" }
+
+  describe "Home page" do
+    it "should have the content 'home'" do
       visit '/static_pages/home'
-      expect(page).to have_title("DJiango | ")
+      expect(page).to have_content('Home')
+    end
+    it "should have the base title" do
+      visit '/static_pages/home'
+      expect(page).to have_title("DJiango")
+    end
+    it "should not have a custom page title" do
+      visit '/static_pages/home'
+      expect(page).not_to have_title('| Home')
     end
   end
 
-  describe "Help page" do
+  describe "Help page" do 
     it "should have the content 'Help'" do
       visit '/static_pages/help'
-      expect(page).to have_content('help')
+      expect(page).to have_content('Help')
     end
-
-    it "title shoud content 'DJiango | '" do
-      visit '/static_pages/home'
-      expect(page).to have_title("DJiango | ")
+    it "title should contain base title and page title" do
+      visit '/static_pages/help'
+      expect(page).to have_title("#{base_title} | Help")
     end
   end
 
   describe "About page" do
-
-    it "should have the content 'About Us'" do
+    it "should have the content 'About us'" do
       visit '/static_pages/about'
-      expect(page).to have_content('about')
+      expect(page).to have_content('About us')
     end
+    it "title should contain base title and page title" do
+      visit '/static_pages/about'
+      expect(page).to have_title("#{base_title} | About us")
+    end
+  end
 
-    it "title shoud content 'DJiango | '" do
-      visit '/static_pages/home'
-      expect(page).to have_title("DJiango | ")
+  describe "Contact page" do 
+    it "should have the content 'Contact us'" do
+      visit '/static_pages/contact'
+      expect(page).to have_content('Contact us')
+    end
+    it "title should contain base title and page title" do
+      visit '/static_pages/contact'
+      expect(page).to have_title("#{base_title} | Contact us")
     end
   end
 end
