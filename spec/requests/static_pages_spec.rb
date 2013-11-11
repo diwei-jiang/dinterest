@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe "StaticPages" do
 
-  let(:base_title) { "DJiango" }
   subject { page }
 
   describe "Home page" do
@@ -20,7 +19,7 @@ describe "StaticPages" do
     end
     it "title should contain base title and page title" do
       visit help_path
-      expect(page).to have_title("#{base_title} | Help")
+      expect(page).to have_title(full_title('Help'))
     end
   end
 
@@ -31,7 +30,7 @@ describe "StaticPages" do
     end
     it "title should contain base title and page title" do
       visit about_path
-      expect(page).to have_title("#{base_title} | About")
+      expect(page).to have_title(full_title('About'))
     end
   end
 
@@ -42,7 +41,7 @@ describe "StaticPages" do
     end
     it "title should contain base title and page title" do
       visit contact_path
-      expect(page).to have_title("#{base_title} | Contact")
+      expect(page).to have_title(full_title('Contact'))
     end
   end
 end
