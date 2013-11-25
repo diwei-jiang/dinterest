@@ -125,7 +125,6 @@ aside {
     border-top: 1px solid $lightGray;
     &:first-child {
       border: 0;
-      padding-top: 0;
     }
     span {
       display: block;
@@ -156,10 +155,6 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
-input {
-  height: auto !important;
-}
-
 #error_explanation {
   color: #f00;
   ul {
@@ -186,5 +181,33 @@ input {
     &:last-child {
       border-bottom: 1px solid $lightGray;
     }
+  }
+}
+
+/* microposts */
+
+.microposts {
+  list-style: none;
+  margin: 10px 0 0 0;
+
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+}
+.content {
+  display: block;
+}
+.timestamp {
+  color: $lightGray;
+}
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+aside {
+  textarea {
+    height: 100px;
+    margin-bottom: 5px;
   }
 }

@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131120205911) do
+ActiveRecord::Schema.define(version: 20131120215722) do
+
+  create_table "microposts", force: true do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -23,7 +32,17 @@ ActiveRecord::Schema.define(version: 20131120205911) do
     t.boolean  "admin",           default: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
+
+  create_table "videos", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.text     "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "scores",       default: 0.0
+    t.integer  "scores_times", default: 0
+  end
 
 end

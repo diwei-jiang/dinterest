@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :already_signin?, only: [:new]
   def new
     render 'new'
   end
@@ -7,7 +8,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       sign_in user
-      redirect_back_or user
+      redirect_back_or root_url
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
@@ -18,4 +19,12 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to root_url
   end
+
+  private
+    def already_signin?
+      if signed_in?
+        flash[:warning] = 'Already sign in, please sign out first.'
+        redirect_to root_url
+      end
+    end
 end
