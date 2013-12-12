@@ -9,12 +9,12 @@
     </section>
   </aside>
   <div class="col-lg-8">
-    <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-        <%= render @microposts %>
+    <% if @user.pins.any? %>
+      <h3>pins (<%= @user.pins.count %>)</h3>
+      <ol class="pins">
+        <%= render @pins %>
       </ol>
-      <%= will_paginate @microposts, renderer: BootstrapPagination::Rails %>
+      <%= will_paginate @pins, renderer: BootstrapPagination::Rails %>
     <% end %>
   </div>
 </div>

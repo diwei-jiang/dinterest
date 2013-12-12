@@ -1,4 +1,4 @@
-class MicropostsController < ApplicationController
+class PinsController < ApplicationController
   before_action :signed_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
 
@@ -6,9 +6,9 @@ class MicropostsController < ApplicationController
   end
 
   def create
-    @micropost = current_user.microposts.build(micropost_params)
-    if @micropost.save
-      flash[:success] = "Micropost created!"
+    @pin = current_user.pins.build(pin_params)
+    if @pin.save
+      flash[:success] = "pin created!"
       redirect_to root_url
     else
       @feed_items = current_user.feed.paginate(page: params[:page],
@@ -18,18 +18,18 @@ class MicropostsController < ApplicationController
   end
 
   def destroy
-    @micropost.destroy
+    @pin.destroy
     flash[:success] = "Successful deleted."
     redirect_to root_url
   end
 
   private
-    def micropost_params
-      params.require(:micropost).permit(:content)
+    def pin_params
+      params.require(:pin).permit(:content)
     end
 
     def correct_user
-      @micropost = current_user.microposts.find_by(id: params[:id])
-      redirect_to root_url if @micropost.nil?
+      @pin = current_user.pins.find_by(id: params[:id])
+      redirect_to root_url if @pin.nil?
     end
 end

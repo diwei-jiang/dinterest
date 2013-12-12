@@ -11,16 +11,78 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131120215722) do
+ActiveRecord::Schema.define(version: 20131212025822) do
 
-  create_table "microposts", force: true do |t|
+  create_table "boards", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "boards", ["user_id"], name: "index_boards_on_user_id"
+
+  create_table "boardships", force: true do |t|
+    t.integer  "board_id"
+    t.integer  "follower_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "boardships", ["board_id", "follower_id"], name: "index_boardships_on_board_id_and_follower_id", unique: true
+  add_index "boardships", ["board_id"], name: "index_boardships_on_board_id"
+  add_index "boardships", ["follower_id"], name: "index_boardships_on_follower_id"
+
+  create_table "comments", force: true do |t|
+    t.integer  "pin_id"
+    t.integer  "user_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["pin_id"], name: "index_comments_on_pin_id"
+
+  create_table "friendships", force: true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.boolean  "conformation"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "friendships", ["sender_id", "receiver_id"], name: "index_friendships_on_sender_id_and_receiver_id", unique: true
+
+  create_table "likeships", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "pin_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "likeships", ["pin_id"], name: "index_likeships_on_pin_id"
+  add_index "likeships", ["user_id", "pin_id"], name: "index_likeships_on_user_id_and_pin_id", unique: true
+  add_index "likeships", ["user_id"], name: "index_likeships_on_user_id"
+
+  create_table "pins", force: true do |t|
     t.string   "content"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at", using: :btree
+  add_index "pins", ["user_id", "created_at"], name: "index_pins_on_user_id_and_created_at"
+
+  create_table "relationships", force: true do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
+  add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+  add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -32,17 +94,7 @@ ActiveRecord::Schema.define(version: 20131120215722) do
     t.boolean  "admin",           default: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
-
-  create_table "videos", force: true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.text     "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.float    "scores",       default: 0.0
-    t.integer  "scores_times", default: 0
-  end
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
 
 end

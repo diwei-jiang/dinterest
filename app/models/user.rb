@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
-  has_many :microposts, dependent: :destroy
+  has_many :pins, dependent: :destroy
+  has_many :comment, dependent: :destroy
+  has_many :board, 
+
   before_save { self.email = email.downcase }
   before_create :create_remember_token
 
@@ -22,7 +25,7 @@ class User < ActiveRecord::Base
 
   def feed
     # This is preliminary. See "Following users" for the full implementation.
-    Micropost.where("user_id = ?", id)
+    Pin.where("user_id = ?", id)
   end
 
   private
