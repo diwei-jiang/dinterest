@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131212025822) do
+ActiveRecord::Schema.define(version: 20131213160951) do
 
   create_table "boards", force: true do |t|
     t.string   "name"
@@ -83,6 +83,25 @@ ActiveRecord::Schema.define(version: 20131212025822) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
+
+  create_table "tags", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name"
+
+  create_table "tagships", force: true do |t|
+    t.string   "pin_id"
+    t.string   "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tagships", ["pin_id", "tag_id"], name: "index_tagships_on_pin_id_and_tag_id", unique: true
+  add_index "tagships", ["pin_id"], name: "index_tagships_on_pin_id"
+  add_index "tagships", ["tag_id"], name: "index_tagships_on_tag_id"
 
   create_table "users", force: true do |t|
     t.string   "name"

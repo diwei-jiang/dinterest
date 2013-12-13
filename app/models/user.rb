@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
   has_many :pins, dependent: :destroy
-  has_many :comment, dependent: :destroy
-  has_many :board, 
+  has_many :comments, dependent: :destroy
+  has_many :boards, dependent: :destroy
+
+  has_many :friendships, foreign_key: "sender_id", dependent: :destroy
 
   before_save { self.email = email.downcase }
   before_create :create_remember_token
