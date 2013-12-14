@@ -6,6 +6,6 @@
   <% if current_user?(pin.user) %>
     <%= link_to "delete", pin, method: :delete,
                                      data: { confirm: "You sure?" },
-                                     title: pin.content %>
+                                     title: pin.description %>
   <% end %>
 </li>

@@ -1,9 +1,23 @@
 class User < ActiveRecord::Base
   has_many :pins, dependent: :destroy
+
   has_many :comments, dependent: :destroy
+
   has_many :boards, dependent: :destroy
 
-  has_many :friendships, foreign_key: "sender_id", dependent: :destroy
+  has_many :boardships, foreign_key: "follower_id", dependent: :destroy
+  has_many :followed_board, through: :boardships, source: :board
+
+  has_many :likeships, dependent: :destroy
+  has_many :liked_pins, through: :likeships, source: :pin
+
+  has_many :friendships, foreign_key: "sender_id", 
+                        dependent: :destroy
+  has_many :requested_users, through: :friendships,
+                      source: :receiver
+
+
+
 
   before_save { self.email = email.downcase }
   before_create :create_remember_token
@@ -26,7 +40,8 @@ class User < ActiveRecord::Base
   end
 
   def feed
-    # This is preliminary. See "Following users" for the full implementation.
+    # This is preliminary.
+    # See "Following users" for the full implementation.
     Pin.where("user_id = ?", id)
   end
 

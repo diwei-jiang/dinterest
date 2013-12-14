@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131213160951) do
+ActiveRecord::Schema.define(version: 20131214031810) do
 
   create_table "boards", force: true do |t|
     t.string   "name"
@@ -46,12 +46,14 @@ ActiveRecord::Schema.define(version: 20131213160951) do
   create_table "friendships", force: true do |t|
     t.integer  "sender_id"
     t.integer  "receiver_id"
-    t.boolean  "conformation"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "conformation"
   end
 
+  add_index "friendships", ["receiver_id"], name: "index_friendships_on_receiver_id"
   add_index "friendships", ["sender_id", "receiver_id"], name: "index_friendships_on_sender_id_and_receiver_id", unique: true
+  add_index "friendships", ["sender_id"], name: "index_friendships_on_sender_id"
 
   create_table "likeships", force: true do |t|
     t.integer  "user_id"
@@ -65,24 +67,17 @@ ActiveRecord::Schema.define(version: 20131213160951) do
   add_index "likeships", ["user_id"], name: "index_likeships_on_user_id"
 
   create_table "pins", force: true do |t|
-    t.string   "content"
+    t.string   "url"
     t.integer  "user_id"
+    t.integer  "board_id"
+    t.integer  "repin_id",    default: 0
+    t.boolean  "selfhold"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "pins", ["user_id", "created_at"], name: "index_pins_on_user_id_and_created_at"
-
-  create_table "relationships", force: true do |t|
-    t.integer  "follower_id"
-    t.integer  "followed_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
-  add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
-  add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
 
   create_table "tags", force: true do |t|
     t.string   "name"
@@ -93,8 +88,8 @@ ActiveRecord::Schema.define(version: 20131213160951) do
   add_index "tags", ["name"], name: "index_tags_on_name"
 
   create_table "tagships", force: true do |t|
-    t.string   "pin_id"
-    t.string   "tag_id"
+    t.integer  "pin_id",     limit: 255
+    t.integer  "tag_id",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end

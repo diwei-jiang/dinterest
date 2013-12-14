@@ -1,6 +1,6 @@
 djpost
 ======
 
-A information post app using rails.
+A pinterest like app. 
 
-`git clone git@github.com:diwei-jiang/djpost.git`
+`https://github.com/diwei-jiang/dinterest.git`
