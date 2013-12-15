@@ -25,5 +25,13 @@ module Djpost
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+
+    # aws config
+    AWS.config(
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'])
+    $S3 = AWS::S3.new( :region => "us-east-1" )
+    $S3.buckets.create 'dinterest.img' if $S3.buckets['dinterest.img']
+    $Bucket = $S3.buckets['dinterest.img']
   end
 end

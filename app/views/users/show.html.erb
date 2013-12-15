@@ -2,19 +2,16 @@
 <div class="row">
   <aside class="col-lg-4">
     <section>
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
+      <%= render 'shared/user_info' %>
     </section>
   </aside>
   <div class="col-lg-8">
-    <% if @user.pins.any? %>
-      <h3>pins (<%= @user.pins.count %>)</h3>
-      <ol class="pins">
-        <%= render @pins %>
+    <% if @user.boards.any? %>
+      <h3>boards (<%= @user.boards.count %>)</h3>
+      <ol class="boards">
+        <%= render @boards %>
       </ol>
-      <%= will_paginate @pins, renderer: BootstrapPagination::Rails %>
+      <%= will_paginate @boards, renderer: BootstrapPagination::Rails %>
     <% end %>
   </div>
 </div>

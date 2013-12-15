@@ -9,11 +9,11 @@
               <span class="glyphicon glyphicon-plus"></span></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Pin", "#" %></li>
-              <li><%= link_to "Board", "#" %></li>
+              <li><%= link_to "Pin", new_pin_path %></li>
+              <li><%= link_to "Board", new_board_path %></li>
             </ul>
           </li>
-          <li><%= link_to current_user.name, "#" %></li>
+          <li><%= link_to current_user.name, current_user %></li>
           <li><%= link_to "Friends", users_path %></li>
           <li id="fat-menu" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

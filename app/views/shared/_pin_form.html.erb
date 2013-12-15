@@ -1,7 +1,21 @@
 <%= form_for(@pin) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
-    <%= f.text_area :description, placeholder: "Compose new pin..." %>
-  </div>
+<%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :url %>
+  <%= f.text_field :url %>
+
+  <h4>or</h4>
+    
+  <%= f.label :upload %><br>
+  <%= f.file_field :image_file %>
+
+  <%= f.label :board %>
+  <%= f.select :board, @boards.map { |b| b.name } %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, 
+                  placeholder: "Say something about this pin..." %>
+
+
   <%= f.submit "Post", class: "btn btn-large btn-primary" %>
 <% end %>

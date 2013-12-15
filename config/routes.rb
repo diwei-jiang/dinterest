@@ -1,7 +1,8 @@
 Djpost::Application.routes.draw do
   resources :users
+  resources :boards
   resources :sessions, only: [:new, :create, :destroy]
-  resources :pins, only: [:create, :destroy]
+  resources :pins
   root 'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'

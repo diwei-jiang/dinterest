@@ -4,7 +4,10 @@
 </h1>
 <span>
   <%= link_to "view my profile", current_user %>
-</span>
+</span><br>
 <span>
   <%= pluralize(current_user.pins.count, "pin") %>
+</span>
+<span>
+  <%= pluralize(current_user.boards.count, "board") %>
 </span>
