@@ -1,0 +1,15 @@
+<% provide(:title, :pin) %>
+<div class="row">
+  <aside class="col-lg-4">
+    <section>
+      <img src= '<%= @pin.url %>' alt="pin image" class="img-responsive">
+    </section>
+  </aside>
+</div>
+<div class="row">
+  <p>
+  <h4>Description:</h4>
+  <%= @pin.description %>
+  </p>
+  
+</div>

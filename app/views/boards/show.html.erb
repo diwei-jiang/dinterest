@@ -1,0 +1,19 @@
+<% provide(:title, @board.name) %>
+<div class="row">
+  <aside class="col-lg-4">
+    <section>
+      <h1>
+        <%= @board.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-lg-8">
+    <% if @board.pins.any? %>
+      <h3>pins (<%= @board.pins.count %>)</h3>
+      <ol class="pins">
+        <%= render @pins %>
+      </ol>
+      <%= will_paginate @pins, renderer: BootstrapPagination::Rails %>
+    <% end %>
+  </div>
+</div>
