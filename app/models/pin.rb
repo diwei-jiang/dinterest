@@ -1,7 +1,7 @@
 class Pin < ActiveRecord::Base
   belongs_to :user
   belongs_to :board
-  has_many :comments
+  has_many :comments, dependent: :destroy
   
   default_scope -> { order('created_at DESC') }
   validates :description, presence: true, length: { maximum: 140 }

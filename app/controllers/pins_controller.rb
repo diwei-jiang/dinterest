@@ -13,12 +13,20 @@ class PinsController < ApplicationController
 
   def create
     @pin = current_user.pins.new
-    @pin.url = pin_params[:url]
-    @pin.board_id = Board.find_by(name: pin_params[:board]).id
+    if pin_params[:url].empty?
+      image_file = pin_params[:image_file]
+      @pin.s3_filename = "#{image_file.original_filename.downcase}.#{Time.now.to_i.to_s}"
+      obj = $Bucket.objects.create(@pin.s3_filename, :file => image_file)
+      obj.acl = :public_read
+      @pin.url = obj.public_url.to_s
+    else
+      @pin.url = pin_params[:url]
+    end
+    @pin.board_id = Board.find_by(name: pin_params[:board]).id unless pin_params[:board].nil?
     @pin.description = pin_params[:description]
 
     if @pin.save
-      flash[:success] = "pin created!"
+      flash[:success] = "New pin created"
       redirect_to @pin
     else
       @boards = current_user.boards
@@ -27,9 +35,13 @@ class PinsController < ApplicationController
   end
 
   def destroy
+    board_id = @pin.board.id
+    unless @pin.s3_filename.nil?
+      $Bucket.objects[@pin.s3_filename].delete
+    end
     @pin.destroy
-    flash[:success].now = "Successful deleted."
-    redirect_to root_url
+    flash[:success] = "Successful deleted."
+    redirect_to board_path(board_id)
   end
 
   private

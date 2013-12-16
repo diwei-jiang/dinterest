@@ -70,14 +70,14 @@ p {
   float: left;
   margin-right: 10px;
   font-size: 2.4em;
-  color: #fff;
+  color: 555;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
   line-height: 1;
   &:hover {
-  color: #fff;
+  color: #e44;
   text-decoration: none;
   }
 }
@@ -151,8 +151,12 @@ aside {
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   @include box_sizing;
+}
+
+.btn {
+  width: 100px;
 }
 
 #error_explanation {
@@ -185,6 +189,15 @@ input, textarea, select, .uneditable-input {
 }
 
 /* pins */
+
+.img-mid {
+  width: 100%;
+}
+.img-small {
+  width: 100px;
+  height: 100px;
+}
+
 
 .pins {
   list-style: none;

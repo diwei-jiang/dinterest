@@ -34,7 +34,13 @@ class BoardsController < ApplicationController
   end
 
   def destroy
-    Board.find(params[:id]).destroy
+    @board = Board.find(params[:id])
+    @board.pins.each do |pin|
+      unless pin.s3_filename.nil?
+        $Bucket.objects[pin.s3_filename].delete
+      end
+    end
+    @board.destroy
     flash[:success] = "Board deleted."
     redirect_to current_user
   end

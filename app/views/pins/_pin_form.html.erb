@@ -4,7 +4,7 @@
   <%= f.label :url %>
   <%= f.text_field :url %>
 
-  <h4>or</h4>
+  <br><strong>or</strong><br>
     
   <%= f.label :upload %><br>
   <%= f.file_field :image_file %>
@@ -17,5 +17,5 @@
                   placeholder: "Say something about this pin..." %>
 
 
-  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+  <%= f.submit "Post", class: "btn btn-primary" %>
 <% end %>

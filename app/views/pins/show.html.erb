@@ -2,14 +2,19 @@
 <div class="row">
   <aside class="col-lg-4">
     <section>
-      <img src= '<%= @pin.url %>' alt="pin image" class="img-responsive">
+    <img src= '<%= @pin.url %>' alt="pin image" class="img-responsive img-mid">
     </section>
   </aside>
 </div>
 <div class="row">
   <p>
   <h4>Description:</h4>
-  <%= @pin.description %>
+  <%= @pin.description %><br>
+  <% if current_user?(@pin.user) %>
+    <%= link_to "delete", @pin, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: @pin.description %>
+  <% end %>
   </p>
   
 </div>
