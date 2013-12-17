@@ -6,7 +6,18 @@
     </section>
   </aside>
 </div>
+<aside class="col-lg-4">
 <div class="row">
+  <p>
+    <a href="#" class="like-botton">
+      <% if @pin.likers.include? current_user %>
+        <span class="glyphicon glyphicon-heart"></span></b>
+      <% else %>
+        <span class="glyphicon glyphicon-heart-empty"></span></b>
+      <% end %>
+    </a>
+  </p>
+
   <p>
   <h4>Description:</h4>
   <%= @pin.description %><br>
@@ -19,5 +30,8 @@
   <%= link_to "Repin", new_pin_path(pin_id: @pin.id, repin_id: @pin.repin_id),
             class: "btn btn-primary" %>
   </p>
-  
+  <p>
+    Tag: <%= raw @pin.tags.map(&:name).map { |t| link_to t, '#' }.join(', ') %>
+  </p>
+</aside>
 </div>

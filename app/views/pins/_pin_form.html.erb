@@ -23,6 +23,8 @@
   <%= f.text_area :description, 
                   placeholder: "Say something about this pin..." %>
 
+  <%= f.label :tag_list, "Tags (separated by commas)" %>
+  <%= f.text_area :tag_list %>
 
   <%= f.submit "Post", class: "btn btn-primary" %>
 <% end %>

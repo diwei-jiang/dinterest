@@ -25,6 +25,7 @@ gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails', '3.0.4'
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
+
 gem 'aws-sdk'
 gem 'mysql2', '~>0.3.14'
 gem "figaro"

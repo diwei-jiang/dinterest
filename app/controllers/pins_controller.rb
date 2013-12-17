@@ -42,6 +42,9 @@ class PinsController < ApplicationController
     @pin.board_id = Board.find_by(name: pin_params[:board]).id unless pin_params[:board].nil?
     @pin.description = pin_params[:description]
 
+    # tag++
+    @pin.tag_list = pin_params[:tag_list]
+
     if @pin.save
       flash[:success] = "New pin created"
       redirect_to @pin
@@ -61,10 +64,19 @@ class PinsController < ApplicationController
     redirect_to board_path(board_id)
   end
 
+  def like
+
+  end
+
+  def unlike
+    
+  end
+
   private
     def pin_params
       params.require(:pin).permit(:url, :image_file, 
-                                :board, :description, :repin_id)
+                                :board, :description, 
+                                :repin_id, :tag_list)
     end
 
     def correct_user
