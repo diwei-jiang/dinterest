@@ -1,13 +1,20 @@
 <%= form_for(@pin) do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.label :url %>
-  <%= f.text_field :url %>
+  <% if @pin.url.nil? %>
+    <%= f.label :url %>
+    <%= f.text_field :url %>
 
-  <br><strong>or</strong><br>
-    
-  <%= f.label :upload %><br>
-  <%= f.file_field :image_file %>
+    <br><strong>or</strong><br>
+      
+    <%= f.label :upload %><br>
+    <%= f.file_field :image_file %>
+  <% else %>
+    <%= f.label :url %>
+    <%= f.text_field :url, :readonly => true, :value => @pin.url %>
+    <%= f.label 'repin from' %>
+    <%= f.text_field :repin_id, :readonly => true, :value => @pin.repin_id %>
+  <% end %>
 
   <%= f.label :board %>
   <%= f.select :board, @boards.map { |b| b.name } %>

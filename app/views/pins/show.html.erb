@@ -13,8 +13,11 @@
   <% if current_user?(@pin.user) %>
     <%= link_to "delete", @pin, method: :delete,
                                      data: { confirm: "You sure?" },
-                                     title: @pin.description %>
+                                     title: @pin.description,
+                                     class: "btn btn-primary" %>
   <% end %>
+  <%= link_to "Repin", new_pin_path(pin_id: @pin.id, repin_id: @pin.repin_id),
+            class: "btn btn-primary" %>
   </p>
   
 </div>

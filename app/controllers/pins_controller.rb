@@ -4,6 +4,19 @@ class PinsController < ApplicationController
 
   def new
     @pin = current_user.pins.new
+
+    # repin
+    if !params[:pin_id].nil? && !params[:repin_id].nil?
+      repin_id = params[:repin_id].to_i
+      pin_id = params[:pin_id].to_i
+      if repin_id == 0
+        @pin.repin_id = pin_id
+      elsif repin_id > 0
+        @pin.repin_id = repin_id
+      end
+      @pin.url = Pin.find(@pin.repin_id).url
+    end
+
     @boards = current_user.boards
   end
 
@@ -13,6 +26,7 @@ class PinsController < ApplicationController
 
   def create
     @pin = current_user.pins.new
+
     if pin_params[:url].empty?
       image_file = pin_params[:image_file]
       @pin.s3_filename = "#{image_file.original_filename.downcase}.#{Time.now.to_i.to_s}"
@@ -22,6 +36,9 @@ class PinsController < ApplicationController
     else
       @pin.url = pin_params[:url]
     end
+
+    @pin.repin_id = pin_params[:repin_id].to_i if !pin_params[:repin_id].nil?
+
     @pin.board_id = Board.find_by(name: pin_params[:board]).id unless pin_params[:board].nil?
     @pin.description = pin_params[:description]
 
@@ -46,7 +63,8 @@ class PinsController < ApplicationController
 
   private
     def pin_params
-      params.require(:pin).permit(:url, :image_file, :board, :description)
+      params.require(:pin).permit(:url, :image_file, 
+                                :board, :description, :repin_id)
     end
 
     def correct_user
