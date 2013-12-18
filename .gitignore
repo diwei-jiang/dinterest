@@ -19,6 +19,7 @@
 database.yml
 doc/
 *.swp
+*.pem
 *~
 .project
 .DS_Store
