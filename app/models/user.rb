@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :boards, dependent: :destroy
 
   has_many :boardships, foreign_key: "follower_id", dependent: :destroy
-  has_many :followed_board, through: :boardships, source: :board
+  has_many :followed_boards, through: :boardships, source: :board
 
   has_many :likeships, dependent: :destroy
   has_many :liked_pins, through: :likeships, source: :pin

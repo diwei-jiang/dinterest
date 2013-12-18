@@ -1,0 +1,13 @@
+<% if current_user.followed_boards.include? @board %>
+  <% boardship = current_user.boardships.find_by(board_id: @board.id) %>
+  <%= form_for boardship, :html => { :method => :delete },
+                     :remote => true do |f| %>
+    <%= f.submit "Unfollow", class: "btn btn-primary" %>
+  <% end %>
+<% else %>
+  <%= form_for current_user.boardships.build, :remote => true do |f| %>
+    <%= f.hidden_field :board_id, value: @board.id %>
+    <%= f.hidden_field :follower_id %>
+    <%= f.submit "Follow", class: "btn btn-primary" %>
+  <% end %>
+<% end %>
