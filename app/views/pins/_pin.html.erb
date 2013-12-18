@@ -2,7 +2,6 @@
   <span class="content">
   <%= link_to image_tag(pin.url, :class => 'img-small'), 
         pin_path(pin.id) %>
-  <%= link_to "Like", pin, method: :create, class: "btn btn-primary"%>
   <% if current_user?(pin.user) %>
     <%= link_to "delete", pin, method: :delete,
                               data: { confirm: "You sure?" },

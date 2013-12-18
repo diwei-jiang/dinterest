@@ -65,11 +65,13 @@ class PinsController < ApplicationController
   end
 
   def like
-
+    current_user.liked_pins.push Pin.find(params[:pin_id])
+    render :text => { like: true }.to_json
   end
 
   def unlike
-    
+    current_user.liked_pins.delete Pin.find(params[:pin_id])
+    render :text => { like: false }.to_json
   end
 
   private

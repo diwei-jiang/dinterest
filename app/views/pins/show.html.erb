@@ -9,13 +9,14 @@
 <aside class="col-lg-4">
 <div class="row">
   <p>
-    <a href="#" class="like-botton">
+    <a href="" class="like-botton">
       <% if @pin.likers.include? current_user %>
         <span class="glyphicon glyphicon-heart"></span></b>
       <% else %>
         <span class="glyphicon glyphicon-heart-empty"></span></b>
       <% end %>
     </a>
+    <%= @pin.likers.count %>
   </p>
 
   <p>
@@ -35,3 +36,29 @@
   </p>
 </aside>
 </div>
+
+<script type="text/javascript">
+
+  <% if @pin.likers.include? current_user %>
+    like_url = '<%= unlike_path %>'
+  <% else %>
+    like_url = '<%= like_path %>'
+  <% end %>
+
+  $(".like-botton").click(function(){
+    $.ajax({
+      type: "GET",
+      url: like_url,
+      data: {
+        pin_id: '<%= @pin.id %>'
+      },
+      success: function(data){
+        data = JSON.parse(data);
+        if(data['like'])
+          $("#like-botton").html('<span class="glyphicon glyphicon-heart"></span>');
+        else
+          $("#like-botton").html('<span class="glyphicon glyphicon-heart-empty"></span>');
+      }
+    })
+  });
+</script>
