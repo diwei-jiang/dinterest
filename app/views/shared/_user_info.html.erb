@@ -1,12 +1,12 @@
-<%= link_to gravatar_for(current_user), current_user %>
+<%= link_to gravatar_for(@user), @user %>
 <h1>
-  <%= current_user.name %>
+  <%= @user.name %>
 </h1>
 <br>
 <br>
 <span>
-  <%= pluralize(current_user.pins.count, "pin") %>
+  <%= pluralize(@user.pins.count, "pin") %>
 </span>
 <span>
-  <%= pluralize(current_user.boards.count, "board") %>
+  <%= pluralize(@user.boards.count, "board") %>
 </span>

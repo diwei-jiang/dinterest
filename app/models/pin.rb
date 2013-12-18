@@ -1,4 +1,5 @@
 class Pin < ActiveRecord::Base
+  default_scope order('pins.created_at DESC')
 
   belongs_to :user
   belongs_to :board
@@ -11,7 +12,6 @@ class Pin < ActiveRecord::Base
 
   has_many :comments, dependent: :destroy
   
-  default_scope -> { order('created_at DESC') }
   validates :description, presence: true, length: { maximum: 140 }
   validates :user_id, presence: true
   validates :board_id, presence: true
@@ -25,7 +25,7 @@ class Pin < ActiveRecord::Base
     Tag.select("tags.*, count(tagships.tag_id) as count").
       joins(:tagships).group("tagships.tag_id")
   end
-  
+
   def tag_list
     tags.map(&:name).join(", ")
   end

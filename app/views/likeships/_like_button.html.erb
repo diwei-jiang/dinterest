@@ -1,0 +1,19 @@
+<% if current_user.liked_pins.include? @pin %>
+  <% likeship = current_user.likeships.find_by(pin_id: @pin.id) %>
+  <%= form_for likeship, :html => { :method => :delete },
+                     :remote => true do |f| %>
+    <button type="submit" class="btn btn-default">
+      <span class="glyphicon glyphicon-heart"></span>
+    </button>
+    <%= @pin.likers.count %>
+  <% end %>
+<% else %>
+  <%= form_for current_user.likeships.build, :remote => true do |f| %>
+    <%= f.hidden_field :pin_id, value: @pin.id %>
+    <%= f.hidden_field :user_id %>
+    <button type="submit" class="btn btn-default">
+      <span class="glyphicon glyphicon-heart-empty"></span>
+    </button>
+    <%= @pin.likers.count %>
+  <% end %>
+<% end %>

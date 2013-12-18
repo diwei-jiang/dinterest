@@ -8,7 +8,7 @@ class BoardshipsController < ApplicationController
       if @boardship.save
         format.js   {}
       else
-        flash[:danger] = ""
+        flash[:danger] = "Failed to Follow."
         format.html { redirect_to board_path(@board.id) }
       end
     end

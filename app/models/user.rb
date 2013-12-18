@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   def feed
     # This is preliminary.
     # See "Following users" for the full implementation.
-    Pin.where("user_id = ?", id)
+    Pin.where("board_id IN (?) OR user_id = ?", followed_boards, id)
   end
 
   private
