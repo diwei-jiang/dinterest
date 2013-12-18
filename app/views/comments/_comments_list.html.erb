@@ -1,0 +1,9 @@
+<% if @pin.comments.any? %>
+  <strong>
+  Comments List (<%= @pin.comments.count %>):
+  </strong>
+    <ul class="comments">
+      <%= render @comments %>
+    </ul>
+  <%= will_paginate @comments, renderer: BootstrapPagination::Rails %>
+<% end %>

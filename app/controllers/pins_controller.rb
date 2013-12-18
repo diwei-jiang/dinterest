@@ -1,5 +1,5 @@
 class PinsController < ApplicationController
-  before_action :signed_in_user, only: [:new, :create, :destroy]
+  before_action :signed_in_user
   before_action :correct_user,   only: :destroy
 
   def new
@@ -22,6 +22,7 @@ class PinsController < ApplicationController
 
   def show
     @pin = Pin.find(params[:id])
+    @comments = @pin.comments.paginate(page: params[:page], per_page: 5)
   end
 
   def create

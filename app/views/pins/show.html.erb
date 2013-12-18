@@ -22,5 +22,14 @@
   <p>
     Tag: <%= raw @pin.tags.map(&:name).map { |t| link_to t, '#' }.join(', ') %>
   </p>
+
+  <div id="Comments-list">
+    <%= render 'comments/comments_list' %>
+  </div>
+
+  <div class="Comment-form">
+    <%= render 'comments/comments_form' %>
+  </div>
+
   </aside>
 </div>

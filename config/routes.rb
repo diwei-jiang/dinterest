@@ -3,6 +3,7 @@ Djpost::Application.routes.draw do
   resources :boards
   resources :sessions, only: [:new, :create, :destroy]
   resources :pins
+  resources :comments, only: [:create, :destroy]
   resources :boardships, only: [:create, :destroy]
   resources :likeships, only: [:create, :destroy]
   root 'static_pages#home'

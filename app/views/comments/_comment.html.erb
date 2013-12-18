@@ -1,0 +1,12 @@
+<li>
+  <span class="content">
+  <p>
+    <%= comment.content %>
+
+    <br>
+    <strong>Comment by</strong>
+    <%= link_to comment.user.name, comment.user %>
+    <%= time_ago_in_words(comment.created_at) %> ago.
+  </p>
+  </span>
+</li>
