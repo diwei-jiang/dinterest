@@ -59,6 +59,10 @@ h2 {
   color: $lightGray;
 }
 
+h3 {
+  margin-bottom: 30px;
+}
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;
@@ -90,6 +94,8 @@ footer {
   padding-top: 5px;
   border-top: 1px solid #eaeaea;
   color: $lightGray;
+  clear: both;
+
   a {
   color: #555;
     &:hover {
@@ -202,12 +208,17 @@ input, textarea, select, .uneditable-input {
 .pins {
   list-style: none;
   margin: 10px 0 0 0;
-
+  overflow:hidden;
   li {
     padding: 10px 0;
     border-top: 1px solid #e8e8e8;
   }
 }
+
+.like-button {
+  border: none;
+}
+
 .content {
   display: block;
 }
@@ -223,4 +234,60 @@ aside {
     height: 100px;
     margin-bottom: 5px;
   }
+}
+
+
+
+/* Required for jQuery Masonry */
+
+.box {
+    margin: 5px;
+    padding: 5px;
+    font-size: 11px;
+    line-height: 1.4em;
+    float: left;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px #0000FF;
+    width: 214px;
+}
+
+.box img {
+    width: 100%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.description {
+    margin: 10px 0 5px;
+    font-style:italic;
+}
+
+/**** Transitions ****/
+
+.masonry,
+.masonry .masonry-brick {
+  -webkit-transition-duration: 1.5s;
+     -moz-transition-duration: 1.5s;
+      -ms-transition-duration: 1.5s;
+       -o-transition-duration: 1.5s;
+          transition-duration: 1.5s;
+}
+
+.masonry {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.masonry .masonry-brick {
+  -webkit-transition-property: left, right, top;
+     -moz-transition-property: left, right, top;
+      -ms-transition-property: left, right, top;
+       -o-transition-property: left, right, top;
+          transition-property: left, right, top;
 }

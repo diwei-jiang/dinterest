@@ -4,7 +4,8 @@
   <% if current_user?(board.user) %>
     <%= link_to "delete", board, method: :delete,
                                      data: { confirm: "You sure?" },
-                                     title: board.name %>
+                                     title: board.name, 
+                                     class: "btn btn-danger btn-xs"%>
   <% end %>
   </span>
 </li>

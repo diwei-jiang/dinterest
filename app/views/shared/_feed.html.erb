@@ -1,6 +1,6 @@
 <% if @feed_items.any? %>
-  <ol class="pins">
+  <div class="pins" id="pins">
     <%= render partial: 'shared/feed_item', collection: @feed_items %>
-  </ol>
+  </div>
   <%= will_paginate @feed_items, renderer: BootstrapPagination::Rails %>
 <% end %>

@@ -10,14 +10,16 @@
 
   <h4>Description:</h4>
   <%= @pin.description %><br>
+  <br/>
+  <%= link_to "Repin", new_pin_path(pin_id: @pin.id, repin_id: @pin.repin_id),
+            class: "btn btn-warning btn-xs" %>
   <% if current_user?(@pin.user) %>
     <%= link_to "delete", @pin, method: :delete,
                                      data: { confirm: "You sure?" },
                                      title: @pin.description,
-                                     class: "btn btn-primary" %>
+                                     class: "btn btn-danger btn-xs" %>
   <% end %>
-  <%= link_to "Repin", new_pin_path(pin_id: @pin.id, repin_id: @pin.repin_id),
-            class: "btn btn-primary" %>
+
 
   <p>
     Tag: <%= raw @pin.tags.map(&:name).map { |t| link_to t, '#' }.join(', ') %>
