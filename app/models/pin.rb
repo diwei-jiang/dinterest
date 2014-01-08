@@ -35,4 +35,8 @@ class Pin < ActiveRecord::Base
       Tag.where(name: n.strip).first_or_create!
     end
   end
+
+  def get_tags
+    self.tags
+  end
 end

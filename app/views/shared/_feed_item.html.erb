@@ -1,6 +1,9 @@
 <div class="box">
   <p><%= link_to (image_tag feed_item.url), feed_item %></p>
   <p class="description"><%= feed_item.description %></p>
+  <p>
+    Tag: <%= raw feed_item.tags.map(&:name).map { |t| link_to t, '#' }.join(', ') %>
+  </p>
     <p><strong>Pined in 
     <%= link_to feed_item.board.name, 
                 board_path(feed_item.board_id) %> 

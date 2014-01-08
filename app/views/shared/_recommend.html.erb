@@ -1,0 +1,5 @@
+<% if @feed_items.any? %>
+  <div class="pins" id="pins">
+    <%= render partial: 'shared/feed_item', collection: @feed_items %>
+  </div>
+<% end %>
