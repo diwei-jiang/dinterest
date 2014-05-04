@@ -210,6 +210,7 @@ DEPENDENCIES
   guard-rspec (~> 4.0.3)
   jbuilder (= 1.0.2)
   jquery-rails (= 3.0.4)
+  mail (~> 2.5.4)
   mysql2 (~> 0.3.14)
   rails (= 4.0.0)
   rails_12factor

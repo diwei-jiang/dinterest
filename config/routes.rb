@@ -6,7 +6,9 @@ Djpost::Application.routes.draw do
   resources :comments, only: [:create, :destroy]
   resources :boardships, only: [:create, :destroy]
   resources :likeships, only: [:create, :destroy]
+  resources :activations, only: [:update, :get]
   root 'static_pages#home'
+  match 'activations/:id' => "activations#update", via: 'get'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'

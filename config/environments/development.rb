@@ -14,7 +14,7 @@ Djpost::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -30,5 +30,21 @@ Djpost::Application.configure do
   AWS.config(
     :access_key_id     => ENV['AWS_ACCESS_KEY_ID'],
     :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
-  )
+  )  
+
+  config.action_mailer.default_url_options = {
+    :host => 'localhost',
+    :port => "3000"
+  }
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :domain => "gmail.com",
+    :user_name => ENV['MAILER_USERNAME'],
+    :password => ENV['MAILER_PASSWORD'],
+    :authentication => "plain",
+    :enable_starttls_auto => true
+  }
 end

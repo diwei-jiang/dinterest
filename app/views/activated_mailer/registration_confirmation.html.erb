@@ -1,0 +1,5 @@
+<p>Hi <%= @user.name %>,</p>
+<p>Welcome to Dinterest, please click the following link to activate you account!</p>
+<p>
+<%= link_to "Activate Now", activation_url(@user, activation_token: @user.activation_token) %>
+</p>

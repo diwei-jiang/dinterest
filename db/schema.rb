@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131217083222) do
+ActiveRecord::Schema.define(version: 20140504060744) do
 
   create_table "boards", force: true do |t|
     t.string   "name"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20131217083222) do
     t.datetime "updated_at"
   end
 
-  add_index "boards", ["user_id"], name: "index_boards_on_user_id"
+  add_index "boards", ["user_id"], name: "index_boards_on_user_id", using: :btree
 
   create_table "boardships", force: true do |t|
     t.integer  "board_id"
@@ -29,9 +29,9 @@ ActiveRecord::Schema.define(version: 20131217083222) do
     t.datetime "updated_at"
   end
 
-  add_index "boardships", ["board_id", "follower_id"], name: "index_boardships_on_board_id_and_follower_id", unique: true
-  add_index "boardships", ["board_id"], name: "index_boardships_on_board_id"
-  add_index "boardships", ["follower_id"], name: "index_boardships_on_follower_id"
+  add_index "boardships", ["board_id", "follower_id"], name: "index_boardships_on_board_id_and_follower_id", unique: true, using: :btree
+  add_index "boardships", ["board_id"], name: "index_boardships_on_board_id", using: :btree
+  add_index "boardships", ["follower_id"], name: "index_boardships_on_follower_id", using: :btree
 
   create_table "comments", force: true do |t|
     t.integer  "pin_id"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20131217083222) do
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["pin_id"], name: "index_comments_on_pin_id"
+  add_index "comments", ["pin_id"], name: "index_comments_on_pin_id", using: :btree
 
   create_table "friendships", force: true do |t|
     t.integer  "sender_id"
@@ -51,9 +51,9 @@ ActiveRecord::Schema.define(version: 20131217083222) do
     t.boolean  "conformation"
   end
 
-  add_index "friendships", ["receiver_id"], name: "index_friendships_on_receiver_id"
-  add_index "friendships", ["sender_id", "receiver_id"], name: "index_friendships_on_sender_id_and_receiver_id", unique: true
-  add_index "friendships", ["sender_id"], name: "index_friendships_on_sender_id"
+  add_index "friendships", ["receiver_id"], name: "index_friendships_on_receiver_id", using: :btree
+  add_index "friendships", ["sender_id", "receiver_id"], name: "index_friendships_on_sender_id_and_receiver_id", unique: true, using: :btree
+  add_index "friendships", ["sender_id"], name: "index_friendships_on_sender_id", using: :btree
 
   create_table "likeships", force: true do |t|
     t.integer  "user_id"
@@ -62,9 +62,9 @@ ActiveRecord::Schema.define(version: 20131217083222) do
     t.datetime "updated_at"
   end
 
-  add_index "likeships", ["pin_id"], name: "index_likeships_on_pin_id"
-  add_index "likeships", ["user_id", "pin_id"], name: "index_likeships_on_user_id_and_pin_id", unique: true
-  add_index "likeships", ["user_id"], name: "index_likeships_on_user_id"
+  add_index "likeships", ["pin_id"], name: "index_likeships_on_pin_id", using: :btree
+  add_index "likeships", ["user_id", "pin_id"], name: "index_likeships_on_user_id_and_pin_id", unique: true, using: :btree
+  add_index "likeships", ["user_id"], name: "index_likeships_on_user_id", using: :btree
 
   create_table "pins", force: true do |t|
     t.string   "url"
@@ -77,13 +77,13 @@ ActiveRecord::Schema.define(version: 20131217083222) do
     t.datetime "updated_at"
   end
 
-  add_index "pins", ["user_id", "created_at"], name: "index_pins_on_user_id_and_created_at"
+  add_index "pins", ["user_id", "created_at"], name: "index_pins_on_user_id_and_created_at", using: :btree
 
   create_table "tags", force: true do |t|
     t.string "name"
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name"
+  add_index "tags", ["name"], name: "index_tags_on_name", using: :btree
 
   create_table "tagships", force: true do |t|
     t.integer  "tag_id"
@@ -92,8 +92,8 @@ ActiveRecord::Schema.define(version: 20131217083222) do
     t.datetime "updated_at"
   end
 
-  add_index "tagships", ["pin_id"], name: "index_tagships_on_pin_id"
-  add_index "tagships", ["tag_id"], name: "index_tagships_on_tag_id"
+  add_index "tagships", ["pin_id"], name: "index_tagships_on_pin_id", using: :btree
+  add_index "tagships", ["tag_id"], name: "index_tagships_on_tag_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -102,10 +102,12 @@ ActiveRecord::Schema.define(version: 20131217083222) do
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           default: false
+    t.boolean  "admin",            default: false
+    t.string   "activation_token"
+    t.boolean  "active",           default: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
 end

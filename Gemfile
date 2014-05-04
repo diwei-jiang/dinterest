@@ -29,6 +29,7 @@ gem 'jbuilder', '1.0.2'
 gem 'aws-sdk'
 gem 'mysql2', '~>0.3.14'
 gem "figaro"
+gem "mail", '~> 2.5.4'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

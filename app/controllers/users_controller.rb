@@ -31,9 +31,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user[:activation_token] = generate_token
     if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the djpost!"
+      send_activation(@user)
+      flash[:success] = "An activation email just sent to #{@user.email}"
       redirect_to @user
     else
       render 'new'
@@ -61,5 +62,13 @@ private
   
   def admin_user
       redirect_to(root_url) unless current_user.admin?
+  end
+
+  def send_activation(user)
+    ActivatedMailer.registration_confirmation(user).deliver
+  end
+
+  def generate_token
+    SecureRandom.urlsafe_base64
   end
 end
